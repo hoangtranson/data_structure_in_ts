@@ -65,3 +65,24 @@ describe("test functionality", () => {
     expect(stack.pop()).toEqual({ value: "test1", key: "key1" });
   });
 });
+
+describe("test functionality", () => {
+  let stack: Stack<{ value: string; key: number }>;
+
+  beforeEach(() => {
+    stack = new Stack<{ value: string; key: number }>();
+
+    for (let i = 0; i < 50000; i++) {
+      stack.push({ value: "test1" + i, key: i });
+    }
+  });
+
+  test("50000 element", () => {
+    const time = getTimeFnRun(() => {
+      for (let i = 0; i < 50000; i++) {
+        stack.pop();
+      }
+    });
+    expect(time).toBeLessThan(2000);
+  });
+});
