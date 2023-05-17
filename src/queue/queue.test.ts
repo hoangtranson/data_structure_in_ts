@@ -4,14 +4,14 @@ import { Queue } from "./queue";
 describe("test functionality", () => {
   test("queue length varies according to enqueued items", () => {
     const queue = new Queue();
-    expect(queue.getLength()).toBe(0);
+    expect(queue.length).toBe(0);
 
     const item = { foo: "bar" };
     queue.enqueue(item);
-    expect(queue.getLength()).toBe(1);
+    expect(queue.length).toBe(1);
 
     queue.dequeue();
-    expect(queue.getLength()).toBe(0);
+    expect(queue.length).toBe(0);
   });
 
   test("first enqueued is first dequeued", () => {
@@ -35,7 +35,7 @@ describe("test functionality", () => {
     queue.dequeue();
     queue.dequeue();
 
-    expect(queue.isEmpty()).toBe(true);
+    expect(queue.isEmpty).toBe(true);
   });
 
   test("items can be enqueued", () => {
@@ -43,7 +43,7 @@ describe("test functionality", () => {
 
     queue.enqueue("a").enqueue("b").enqueue("c");
 
-    expect(queue.toString()).toBe("a,b,c");
+    expect(queue.value).toEqual(["a", "b", "c"]);
   });
 });
 
@@ -59,7 +59,7 @@ describe("test functionality", () => {
   });
 
   test("50000 element", () => {
-    expect(queue.getLength()).toBe(50000);
+    expect(queue.length).toBe(50000);
     const time = getTimeFnRun(() => {
       for (let i = 0; i < 50000; i++) {
         queue.dequeue();
