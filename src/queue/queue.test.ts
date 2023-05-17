@@ -1,3 +1,4 @@
+import { getTimeFnRun } from "../utils/performance";
 import { Queue } from "./queue";
 
 describe("test functionality", () => {
@@ -59,14 +60,11 @@ describe("test functionality", () => {
 
   test("50000 element", () => {
     expect(queue.getLength()).toBe(50000);
-
-    const start = performance.now();
-    for (let i = 0; i < 50000; i++) {
-      queue.dequeue();
-    }
-    const end = performance.now();
-    console.log(`Execution time: ${end - start} ms`);
-
-    expect(end - start).toBeLessThan(2000);
+    const time = getTimeFnRun(() => {
+      for (let i = 0; i < 50000; i++) {
+        queue.dequeue();
+      }
+    });
+    expect(time).toBeLessThan(2000);
   });
 });
